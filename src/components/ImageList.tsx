@@ -6,7 +6,6 @@ import { Image } from '../types/Image'
 import { setActiveImage } from '../redux/reducers/imageSlice'
 
 interface ImageListProps {
-    onImageClick: () => void
     activeTab: number
 }
 
