@@ -66,3 +66,5 @@ npm run deploy
 -   [Jest](https://jestjs.io/) - Testing
 -   [Webpack](https://webpack.js.org) - JS Bundler
 -   [Autoprefixer](https://github.com/postcss/autoprefixer) - Automatically parses and adds vendor prefixes to CSS
+    [styled components](https://styled-components.com/docs)
+    [Redux Toolkit](https://redux-toolkit.js.org/)
