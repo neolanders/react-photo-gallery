@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     ImageThunkDispatch,
     fetchImages,
+    setActiveImage,
 } from '../../redux/reducers/imageSlice'
+import { Image } from '../../types/Image'
 import ImageList from '../image/ImageList'
 import GallerySidebar from './GallerySidebar'
+import { RootState } from '../../redux/store'
+import { getFavoritedImages, getSortedImages } from '../../utils/utils'
 
 const GalleryContainer = styled.div`
     display: flex;
@@ -61,14 +65,36 @@ const GalleryTab = styled.button<{ isActive: boolean }>`
 const Gallery: React.FC = () => {
     const [activeTab, setActiveTab] = useState(1)
     const dispatch = useDispatch<ImageThunkDispatch>()
+    const images = useSelector<RootState, Image[]>((state) => state.images.data)
+
+    const getFirstImageTab = (images: Image[]) => {
+        let firstImage = images[0]
+        switch (activeTab) {
+            case 1:
+                firstImage = getSortedImages(images)[0]
+                break
+            case 2:
+                firstImage = getFavoritedImages(images)[0]
+                break
+        }
+        return firstImage
+    }
+
+    const firstImage = getFirstImageTab(images)
 
     useEffect(() => {
         dispatch(fetchImages())
     }, [dispatch])
 
-    const handleTabClick = (index: number) => {
+    useEffect(() => {
+        if (firstImage) {
+            dispatch(setActiveImage(firstImage)) // Set the first image as activeImage
+        }
+    }, [dispatch, firstImage, activeTab])
+
+    const handleTabClick = useCallback((index: number) => {
         setActiveTab(index)
-    }
+    }, [])
 
     return (
         <GalleryContainer>

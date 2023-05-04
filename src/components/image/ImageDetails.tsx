@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { Image } from '../../types/Image'
 import { toggleFavorite, deleteImage } from '../../redux/reducers/imageSlice'
+import { HeartIcon } from '../../assets/svg/HeartIcon'
 
 const ImageContainer = styled.div`
     margin-top: 1rem;
@@ -47,17 +48,17 @@ const ImageDetails: React.FC = () => {
     )
     const dispatch = useDispatch()
 
-    const handleToggleFavorite = () => {
+    const handleToggleFavorite = useCallback(() => {
         if (selectedImage) {
             dispatch(toggleFavorite({ id: selectedImage.id }))
         }
-    }
+    }, [dispatch, selectedImage])
 
-    const handleDeleteImage = () => {
+    const handleDeleteImage = useCallback(() => {
         if (selectedImage) {
             dispatch(deleteImage({ id: selectedImage.id }))
         }
-    }
+    }, [dispatch, selectedImage])
 
     if (!selectedImage) {
         return <NoImagesMessage>No image selected</NoImagesMessage>
@@ -71,10 +72,15 @@ const ImageDetails: React.FC = () => {
                 />
             </ImageContainer>
             <ImageActions>
-                <ImageAction onClick={handleToggleFavorite}>
+                <HeartIcon
+                    onClick={handleToggleFavorite}
+                    fill={selectedImage.favorited ? 'red' : 'gray'}
+                />
+
+                {/* <ImageAction onClick={handleToggleFavorite}>
                     {selectedImage.favorited ? 'Unfavorite' : 'Favorite'}
-                </ImageAction>
-                <ImageAction onClick={handleDeleteImage}>Delete</ImageAction>
+                </ImageAction> */}
+                {/* <ImageAction onClick={handleDeleteImage}>Delete</ImageAction> */}
             </ImageActions>
         </>
     )

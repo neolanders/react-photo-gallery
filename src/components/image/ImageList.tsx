@@ -4,6 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { Image } from '../../types/Image'
 import { setActiveImage } from '../../redux/reducers/imageSlice'
+import {
+    bytesToMB,
+    getFavoritedImages,
+    getSortedImages,
+} from '../../utils/utils'
 
 interface ImageListProps {
     activeTab: number
@@ -46,11 +51,14 @@ const ImageListContainer = styled.div`
 const ImageFileName = styled.p`
     color: #000;
     font-size: 10px;
+    font-weight: 600;
 `
 
 const ImageSize = styled.p`
     color: #9ea9b7;
     font-size: 10px;
+    margin: 0;
+    padding: 0;
 `
 
 const NoImagesMessage = styled.p`
@@ -69,9 +77,7 @@ const ImageList: React.FC<ImageListProps> = ({ activeTab }) => {
         switch (activeTab) {
             // Recently added images
             case 1: {
-                const sortedImages = images
-                    .slice()
-                    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                const sortedImages = getSortedImages(images)
                 if (sortedImages.length === 0) {
                     return (
                         <NoImagesMessage>
@@ -87,15 +93,13 @@ const ImageList: React.FC<ImageListProps> = ({ activeTab }) => {
                             onClick={() => handleImageClick(image)}
                         />
                         <ImageFileName>{image.filename}</ImageFileName>
-                        <ImageSize>{image.sizeInBytes}</ImageSize>
+                        <ImageSize>{bytesToMB(image.sizeInBytes)}</ImageSize>
                     </ImageItem>
                 ))
             }
             // Favorited images
             case 2: {
-                const favoritedImages = images.filter(
-                    (image) => image.favorited
-                )
+                const favoritedImages = getFavoritedImages(images)
                 if (favoritedImages.length === 0) {
                     return (
                         <NoImagesMessage>No favorited images</NoImagesMessage>
