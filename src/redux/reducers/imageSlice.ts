@@ -5,8 +5,6 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit'
 import { ThunkDispatch } from 'redux-thunk'
-
-// import { AnyAction } from 'redux'
 import axios from 'axios'
 import { Image } from '../../types/Image'
 import { RootState } from '../store'

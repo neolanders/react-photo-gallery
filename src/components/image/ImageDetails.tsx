@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../redux/store'
-import { Image } from '../types/Image'
-import { toggleFavorite, deleteImage } from '../redux/reducers/imageSlice'
+import { RootState } from '../../redux/store'
+import { Image } from '../../types/Image'
+import { toggleFavorite, deleteImage } from '../../redux/reducers/imageSlice'
 
 const ImageContainer = styled.div`
     margin-top: 1rem;
@@ -14,7 +14,7 @@ const ImageContainer = styled.div`
 
 const ImagePreview = styled.img`
     max-width: 100%;
-    max-height: 400px;
+    max-height: 138px;
 `
 
 const ImageActions = styled.div`
@@ -42,7 +42,6 @@ const NoImagesMessage = styled.p`
 `
 
 const ImageDetails: React.FC = () => {
-    // const images = useSelector<RootState, Image[]>((state) => state.images.data)
     const selectedImage = useSelector<RootState, Image | null>(
         (state) => state.images.activeImage
     )

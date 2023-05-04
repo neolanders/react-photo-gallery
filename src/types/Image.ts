@@ -6,6 +6,7 @@ export interface Image {
     uploadedBy: string
     createdAt: string
     favorited: boolean
+    sizeInBytes: number
 }
 
 // "id": "74957345-6f5b-4d66-ae9d-5d0071b40279",

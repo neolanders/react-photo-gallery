@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import ImageDetails from '../ImageDetails'
+import ImageDetails from '../image/ImageDetails'
 
 const SidebarWrapper = styled.div`
     width: 25%;
     height: 100vh;
-    background-color: #f2f2f2;
-    padding: 1rem;
+    background-color: #fff;
+    padding: 32px;
     @media (max-width: 768px) {
         width: 100%;
         height: auto;

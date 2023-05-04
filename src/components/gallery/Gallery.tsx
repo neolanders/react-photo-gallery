@@ -5,41 +5,53 @@ import {
     ImageThunkDispatch,
     fetchImages,
 } from '../../redux/reducers/imageSlice'
-import ImageList from '../ImageList'
+import ImageList from '../image/ImageList'
 import GallerySidebar from './GallerySidebar'
 
 const GalleryContainer = styled.div`
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
+    flex-direction: row;
+    background-color: #f7fafc;
 
     @media (max-width: 768px) {
         flex-direction: column;
     }
 `
 
+const GalleryTitle = styled.h1`
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+`
+
+const GalleryHeader = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+
 const GalleryContent = styled.div`
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 32px;
 `
 
 const GalleryTabs = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
 `
 
 const GalleryTab = styled.button<{ isActive: boolean }>`
-    background-color: ${({ isActive }) => (isActive ? '#007bff' : '#f2f2f2')};
-    color: ${({ isActive }) => (isActive ? '#fff' : '#333')};
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+    background-color: transparent;
+    padding: 0;
     border: none;
-    border-radius: 5px;
+    border-bottom: ${({ isActive }) =>
+        isActive ? '1px solid #756DEA' : '1px solid transparent'};
+    color: ${({ isActive }) => (isActive ? '#756DEA' : '#8592A3')};
+    font-size: 1rem;
     cursor: pointer;
     margin-right: 1rem;
     outline: none;
@@ -60,24 +72,27 @@ const Gallery: React.FC = () => {
 
     return (
         <GalleryContainer>
-            <GalleryTabs>
-                <GalleryTab
-                    isActive={activeTab === 1}
-                    onClick={() => handleTabClick(1)}
-                >
-                    Recently Added
-                </GalleryTab>
-                <GalleryTab
-                    isActive={activeTab === 2}
-                    onClick={() => handleTabClick(2)}
-                >
-                    Favorited
-                </GalleryTab>
-            </GalleryTabs>
             <GalleryContent>
+                <GalleryHeader>
+                    <GalleryTitle>Photos</GalleryTitle>
+                    <GalleryTabs>
+                        <GalleryTab
+                            isActive={activeTab === 1}
+                            onClick={() => handleTabClick(1)}
+                        >
+                            Recently Added
+                        </GalleryTab>
+                        <GalleryTab
+                            isActive={activeTab === 2}
+                            onClick={() => handleTabClick(2)}
+                        >
+                            Favorited
+                        </GalleryTab>
+                    </GalleryTabs>
+                </GalleryHeader>
                 <ImageList activeTab={activeTab} />
-                <GallerySidebar />
             </GalleryContent>
+            <GallerySidebar />
         </GalleryContainer>
     )
 }
