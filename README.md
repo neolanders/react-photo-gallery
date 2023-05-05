@@ -4,6 +4,8 @@ This is react photo gallery in react build from scratch in react using styled co
 
 <img src="./doc/mockup.png" alt="Image description" width="500" height="300">
 
+[Demo](https://neolanders.github.io/react-photo-gallery)
+
 ## Getting Started
 
 ### Prerequisites
