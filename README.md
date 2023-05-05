@@ -12,7 +12,7 @@ This is react photo gallery in react build from scratch in react using styled co
 
 1. [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) or [NVM-Windows](https://github.com/coreybutler/nvm-windows)
 
--   Minimum requierment for this project is Node v16.
+> **IMPORTANT:** Minimum requierment for this project is Node v16.16.0
 
 ### Get It
 
