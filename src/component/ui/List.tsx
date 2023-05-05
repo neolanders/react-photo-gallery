@@ -15,7 +15,7 @@ const Label = styled.h3`
 `
 
 const Data = styled.h3`
-    justify-self: end;
+    justify-self: end;=
 `
 
 interface ListProps {

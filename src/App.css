@@ -14,24 +14,25 @@ h6 {
     font-family: Arial, sans-serif;
 }
 h1 {
-    font-size: 1rem; /* adjust size as needed */
+    font-size: 1rem;
 }
 h2 {
-    font-size: 0.8rem; /* adjust size as needed */
+    font-size: 0.8rem;
 }
 
 h3 {
-    font-size: 0.7rem; /* adjust size as needed */
+    font-size: 0.7rem;
+    font-weight: 400;
 }
 
 h4 {
-    font-size: 0.6rem; /* adjust size as needed */
+    font-size: 0.6rem;
 }
 
 h5 {
-    font-size: 0.5rem; /* adjust size as needed */
+    font-size: 0.5rem;
 }
 
 h6 {
-    font-size: 0.4rem; /* adjust size as needed */
+    font-size: 0.4rem;
 }

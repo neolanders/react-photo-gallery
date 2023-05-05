@@ -16,7 +16,6 @@ const GalleryContainer = styled.div`
     display: flex;
     flex-direction: row;
     background-color: #f7fafc;
-
     @media (max-width: 768px) {
         flex-direction: column;
     }
@@ -25,7 +24,6 @@ const GalleryContainer = styled.div`
 const GalleryTitle = styled.h1`
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 10px;
     text-align: center;
 `
 
@@ -40,6 +38,7 @@ const GalleryContent = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
     flex-grow: 1;
+    padding: 16px 0px 0px 32px;
 `
 
 const GalleryTabs = styled.div`
@@ -52,7 +51,7 @@ const GalleryTab = styled.button<{ isActive: boolean }>`
     padding: 0;
     border: none;
     border-bottom: ${({ isActive }) =>
-        isActive ? '1px solid #756DEA' : '1px solid transparent'};
+        isActive ? '2px solid #756DEA' : '2px solid transparent'};
     color: ${({ isActive }) => (isActive ? '#756DEA' : '#8592A3')};
     font-size: 1rem;
     cursor: pointer;
@@ -114,12 +113,14 @@ const Gallery: React.FC = () => {
                     <GalleryTitle>Photos</GalleryTitle>
                     <GalleryTabs>
                         <GalleryTab
+                            aria-selected={activeTab === 1}
                             isActive={activeTab === 1}
                             onClick={() => handleTabClick(1)}
                         >
                             Recently Added
                         </GalleryTab>
                         <GalleryTab
+                            aria-selected={activeTab === 2}
                             isActive={activeTab === 2}
                             onClick={() => handleTabClick(2)}
                         >

@@ -1,12 +1,14 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Image } from '../../types/Image'
 import { setActiveImage } from '../../redux/reducers/imageSlice'
 import { getFavoritedImages, getSortedImages } from '../../utils'
 import ImageSize from './ImageSize'
 import ImageFileName from './ImageFileName'
 import Spinner from '../ui/Spinner'
+import ImagePreview from './ImagePreview'
+import { RootState } from '../../redux/store'
 
 interface ImageListProps {
     activeTab: number
@@ -21,12 +23,6 @@ const ImageItem = styled.div`
         height: 77px;
         object-fit: cover;
     }
-`
-
-const ImagePreview = styled.img`
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
 `
 
 const ImageListContainer = styled.div`
@@ -61,6 +57,9 @@ const NoImagesMessage = styled.div`
 
 const ImageList: React.FC<ImageListProps> = ({ loadedImages, activeTab }) => {
     const dispatch = useDispatch()
+    const selectedImage = useSelector<RootState, Image | null>(
+        (state) => state.images.activeImage
+    )
 
     const handleImageClick = useCallback((image: Image) => {
         dispatch(setActiveImage(image))
@@ -72,10 +71,11 @@ const ImageList: React.FC<ImageListProps> = ({ loadedImages, activeTab }) => {
 
     const renderImageList = (imageList: Image[]) => {
         return (
-            <ImageListContainer>
+            <ImageListContainer data-testid="image-list-container">
                 {imageList.map((image: Image) => (
                     <ImageItem key={image.id}>
                         <ImagePreview
+                            selected={selectedImage?.id === image.id}
                             src={image.url}
                             alt={image.filename}
                             onClick={() => handleImageClick(image)}

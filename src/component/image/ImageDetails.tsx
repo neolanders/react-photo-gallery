@@ -8,6 +8,8 @@ import { HeartIcon } from '../../assets/svg/HeartIcon'
 import ImageFileName from './ImageFileName'
 import ImageSize from './ImageSize'
 import List from '../ui/List'
+import { getFormatedDate } from '../../utils'
+import ImagePreview from './ImagePreview'
 
 const ImageContainer = styled.div`
     width: 100%;
@@ -18,39 +20,53 @@ const ImageContainer = styled.div`
     align-items: center;
 `
 
-const ImagePreview = styled.img`
-    max-width: 100%;
-    min-width: 222px;
-    max-height: 138px;
-    min-height: 138px;
-`
-
 const ImageSubContent = styled.div`
     display: flex;
     flex-direction: row;
+    width: 222px;
+    margin-top: 16px;
 `
 
 const ImageInfo = styled.div`
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+`
+
+const FavoriteIconContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `
 
 const ImageInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 16px;
+    div:first-child {
+        border-top: 1px solid #d7dee8;
+    }
+    div:last-child {
+        border-bottom: 1px solid #d7dee8;
+    }
 `
 
-const TitleContent = styled.h3`
+const TitleContent = styled.h2`
     color: #000;
 `
 
 const Content = styled.p`
     color: #9ea9b7;
+    font-size: 0.7rem;
 `
 
 const ImageDescriptionContainer = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 16px;
+    max-width: 200px;
+    @media (max-width: 768px) {
+        max-width: 100%;
+    }
 `
 
 const ImageActions = styled.div`
@@ -112,6 +128,9 @@ const ImageDetails: React.FC = () => {
                 <ImagePreview
                     src={selectedImage.url}
                     alt={selectedImage.filename}
+                    minWidth={222}
+                    maxHeight={138}
+                    minHeight={138}
                 />
                 <ImageSubContent>
                     <ImageInfo>
@@ -121,21 +140,37 @@ const ImageDetails: React.FC = () => {
                         />
                         <ImageSize sizeInBytes={selectedImage.sizeInBytes} />
                     </ImageInfo>
-                    <HeartIcon
-                        onClick={handleToggleFavorite}
-                        fill={selectedImage.favorited ? 'red' : 'gray'}
-                    />
+                    <FavoriteIconContainer>
+                        <HeartIcon
+                            onClick={handleToggleFavorite}
+                            fill={selectedImage.favorited ? 'red' : 'gray'}
+                        />
+                    </FavoriteIconContainer>
                 </ImageSubContent>
             </ImageContainer>
             <ImageInfoContainer>
                 <TitleContent>Information</TitleContent>
-                <List label="Name" data="John Doe" />
-                <List label="Age" data="25" />
-                <List label="Email" data="john.doe@example.com" />
+                <List label="Uploaded by" data={selectedImage.uploadedBy} />
+                <List
+                    label="Created"
+                    data={getFormatedDate(selectedImage.createdAt)}
+                />
+                <List
+                    label="Last modified"
+                    data={getFormatedDate(selectedImage.updatedAt)}
+                />
+                <List
+                    label="Dimensions"
+                    data={`${selectedImage.dimensions.width} x ${selectedImage.dimensions.height}`}
+                />
+                <List
+                    label="Resolution"
+                    data={`${selectedImage.resolution.width} x ${selectedImage.resolution.height}`}
+                />
             </ImageInfoContainer>
             <ImageDescriptionContainer>
                 <TitleContent>Description</TitleContent>
-                <Content>sdfdsfdsfdsfdsf</Content>
+                <Content>{selectedImage.description}</Content>
             </ImageDescriptionContainer>
             <ImageActions>
                 <ImageAction onClick={handleDeleteImage}>Delete</ImageAction>
