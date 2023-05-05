@@ -1,6 +1,37 @@
 body {
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 img {
     border-radius: 5px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Arial, sans-serif;
+}
+h1 {
+    font-size: 1rem; /* adjust size as needed */
+}
+h2 {
+    font-size: 0.8rem; /* adjust size as needed */
+}
+
+h3 {
+    font-size: 0.7rem; /* adjust size as needed */
+}
+
+h4 {
+    font-size: 0.6rem; /* adjust size as needed */
+}
+
+h5 {
+    font-size: 0.5rem; /* adjust size as needed */
+}
+
+h6 {
+    font-size: 0.4rem; /* adjust size as needed */
 }

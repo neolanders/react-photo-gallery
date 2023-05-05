@@ -10,7 +10,7 @@ import { Image } from '../../types/Image'
 import ImageList from '../image/ImageList'
 import GallerySidebar from './GallerySidebar'
 import { RootState } from '../../redux/store'
-import { getFavoritedImages, getSortedImages } from '../../utils/utils'
+import { getFavoritedImages, getSortedImages } from '../../utils/index'
 
 const GalleryContainer = styled.div`
     display: flex;
@@ -40,7 +40,6 @@ const GalleryContent = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
     flex-grow: 1;
-    padding: 32px;
 `
 
 const GalleryTabs = styled.div`
@@ -65,7 +64,13 @@ const GalleryTab = styled.button<{ isActive: boolean }>`
 const Gallery: React.FC = () => {
     const [activeTab, setActiveTab] = useState(1)
     const dispatch = useDispatch<ImageThunkDispatch>()
-    const images = useSelector<RootState, Image[]>((state) => state.images.data)
+    const images: any = useSelector<RootState, Image[]>(
+        (state) => state.images.data
+    )
+    const loading = useSelector<RootState, boolean>(
+        (state) => state.images.isLoading
+    )
+    const [loadedImages, setLoadedImages] = useState([])
 
     const getFirstImageTab = (images: Image[]) => {
         let firstImage = images[0]
@@ -85,6 +90,12 @@ const Gallery: React.FC = () => {
     useEffect(() => {
         dispatch(fetchImages())
     }, [dispatch])
+
+    useEffect(() => {
+        if (!loading && images) {
+            setLoadedImages(images)
+        }
+    }, [loading, images])
 
     useEffect(() => {
         if (firstImage) {
@@ -116,7 +127,7 @@ const Gallery: React.FC = () => {
                         </GalleryTab>
                     </GalleryTabs>
                 </GalleryHeader>
-                <ImageList activeTab={activeTab} />
+                <ImageList loadedImages={loadedImages} activeTab={activeTab} />
             </GalleryContent>
             <GallerySidebar />
         </GalleryContainer>

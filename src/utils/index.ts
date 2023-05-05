@@ -6,8 +6,11 @@ export const bytesToMB = (bytes: number) =>
 export const getSortedImages = (images: Image[]) =>
     images
         .slice()
-        .sort((a: { createdAt: any }, b: { createdAt: string }) =>
-            b.createdAt.localeCompare(a.createdAt)
+        .sort(
+            (
+                a: { createdAt: any; favorited: boolean },
+                b: { createdAt: string; favorited: boolean }
+            ) => b.createdAt.localeCompare(a.createdAt)
         )
 
 export const getFavoritedImages = (images: Image[]) =>

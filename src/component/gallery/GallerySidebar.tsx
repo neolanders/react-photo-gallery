@@ -25,7 +25,6 @@ const GallerySidebar: React.FC = () => {
     return (
         <SidebarWrapper>
             <ImageDetails />
-            <SidebarLink>sdfsd</SidebarLink>
         </SidebarWrapper>
     )
 }
