@@ -1,6 +1,6 @@
 # React Photo Gallery
 
-This is react photo gallery in react build from scratch in react using styled components and Redux Toolkit
+This is a react photo gallery build from scratch using typescript, styled components and Redux Toolkit
 
 <img src="./doc/mockup.png" alt="Image description" width="500" height="300">
 
